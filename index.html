@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyMate</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:30px 18px;font-family:Arial,sans-serif;background:#f5f4f0;color:#252525}
+.container{max-width:550px;margin:auto}
+h1{font-size:36px;margin-bottom:5px}
+.subtitle{color:#777;margin-bottom:30px}
+.card{background:white;padding:20px;border-radius:16px;margin-bottom:18px}
+input,button{padding:13px;border-radius:9px;border:1px solid #ddd;font-size:15px}
+input{width:100%;margin-bottom:10px}
+button{cursor:pointer;background:#343f35;color:white;border:0}
+.add{width:100%}
+.task{display:flex;align-items:center;gap:10px;border-bottom:1px solid #eee;padding:13px 0}
+.task span{flex:1}
+.done{text-decoration:line-through;color:#999}
+.delete{background:#eee;color:#333;padding:8px}
+.stats{color:#777;font-size:14px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>StudyMate 📚</h1>
+<p class="subtitle">Your study journey, organized.</p>
+
+<div class="card">
+<h3>Add a new task</h3>
+<input id="taskInput" placeholder="What do you need to study?">
+<input id="taskDate" type="date">
+<button class="add" onclick="addTask()">+ Add task</button>
+</div>
+
+<div class="card">
+<h3>My tasks</h3>
+<p class="stats" id="stats">0 tasks completed</p>
+<div id="taskList"></div>
+</div>
+</div>
+
+<script>
+let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+
+function save(){
+localStorage.setItem("tasks",JSON.stringify(tasks));
+render();
+}
+
+function addTask(){
+let input=document.getElementById("taskInput");
+if(!input.value.trim())return;
+tasks.push({
+id:Date.now(),
+name:input.value.trim(),
+date:document.getElementById("taskDate").value,
+done:false
+});
+input.value="";
+document.getElementById("taskDate").value="";
+save();
+}
+
+function toggleTask(id){
+tasks=tasks.map(t=>t.id===id?{...t,done:!t.done}:t);
+save();
+}
+
+function deleteTask(id){
+tasks=tasks.filter(t=>t.id!==id);
+save();
+}
+
+function render(){
+let list=document.getElementById("taskList");
+list.innerHTML="";
+let completed=tasks.filter(t=>t.done).length;
+document.getElementById("stats").textContent=
+completed+" of "+tasks.length+" tasks completed";
+
+tasks.forEach(t=>{
+let row=document.createElement("div");
+row.className="task";
+let check=document.createElement("input");
+check.type="checkbox";
+check.checked=t.done;
+check.style.width="20px";
+check.style.margin="0";
+check.onchange=()=>toggleTask(t.id);
+
+let name=document.createElement("span");
+name.textContent=t.name+(t.date?" — "+t.date:"");
+if(t.done)name.className="done";
+
+let del=document.createElement("button");
+del.className="delete";
+del.textContent="Delete";
+del.onclick=()=>deleteTask(t.id);
+
+row.append(check,name,del);
+list.appendChild(row);
+});
+}
+render();
+</script>
+</body>
+</html>
