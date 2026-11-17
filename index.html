@@ -6,59 +6,217 @@
 <title>StudyMate</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding:30px 18px;font-family:Arial,sans-serif;background:#f5f4f0;color:#252525}
-.container{max-width:550px;margin:auto}
-h1{font-size:36px;margin-bottom:5px}
-.subtitle{color:#777;margin-bottom:30px}
-.card{background:white;padding:20px;border-radius:16px;margin-bottom:18px}
-input,button{padding:13px;border-radius:9px;border:1px solid #ddd;font-size:15px}
-input{width:100%;margin-bottom:10px}
-button{cursor:pointer;background:#343f35;color:white;border:0}
-.add{width:100%}
-.task{display:flex;align-items:center;gap:10px;border-bottom:1px solid #eee;padding:13px 0}
-.task span{flex:1}
-.done{text-decoration:line-through;color:#999}
-.delete{background:#eee;color:#333;padding:8px}
-.stats{color:#777;font-size:14px}
+:root{--bg:#f5f6f2;--card:#fff;--text:#202a25;--muted:#858d87;--green:#456b55;--light:#e8efe9;--border:#e8ebe7}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+.container{max-width:850px;margin:auto;padding:28px 18px 60px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.logo{font-size:25px;font-weight:bold;color:var(--green)}
+.tag{font-size:12px;color:var(--muted)}
+h1{font-size:29px;margin:0 0 7px}
+h2{font-size:19px;margin:0 0 17px}
+h3{font-size:15px;margin:0 0 13px}
+p{color:var(--muted)}
+.welcome{margin-bottom:25px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat,.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px}
+.stat strong{display:block;font-size:25px;margin-bottom:5px;color:var(--green)}
+.stat span{font-size:12px;color:var(--muted)}
+.card{margin-bottom:17px}
+input,select,button{font:inherit;border-radius:9px;padding:12px;border:1px solid var(--border)}
+input,select{width:100%;background:#fff;margin-bottom:10px;color:var(--text)}
+button{background:var(--green);color:white;border:0;cursor:pointer}
+button:hover{opacity:.9}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.task{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--border)}
+.task:last-child{border:0}
+.task input{width:19px;margin:0}
+.task-name{flex:1;font-size:14px}
+.done{text-decoration:line-through;color:#a0a7a1}
+.small{font-size:12px;color:var(--muted);display:block;margin-top:5px}
+.delete{background:#f3e9e7;color:#925e55;padding:8px 10px;font-size:12px}
+.subject{display:inline-flex;align-items:center;gap:8px;background:var(--light);padding:9px 12px;border-radius:20px;margin:4px;font-size:13px}
+.subject button{background:transparent;color:#925e55;padding:0}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{background:#f1f4f0;color:var(--green);padding:10px 3px;font-size:12px}
+.day.active{background:var(--green);color:white}
+.timer{text-align:center;padding:12px}
+.time{font-size:54px;font-weight:bold;color:var(--green);margin:12px}
+.timer button{margin:4px}
+.progress{height:10px;background:#edf0ec;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress div{height:100%;background:var(--green);width:0%;transition:.3s}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.tabs button{background:#e8ece8;color:var(--green);padding:10px 13px;font-size:13px}
+.tabs button.active{background:var(--green);color:white}
+.section{display:none}
+.section.active{display:block}
+.empty{text-align:center;padding:20px;color:var(--muted);font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+@media(max-width:520px){
+.container{padding:20px 14px 45px}
+.grid{gap:7px}
+.stat{padding:13px 9px}
+.stat strong{font-size:21px}
+.days{gap:3px}
+.day{font-size:10px;padding:9px 1px}
+}
 </style>
 </head>
 <body>
 <div class="container">
-<h1>StudyMate 📚</h1>
-<p class="subtitle">Your study journey, organized.</p>
 
+<header>
+<div class="logo">StudyMate 📚</div>
+<div class="tag">YOUR STUDY SPACE</div>
+</header>
+
+<div class="welcome">
+<h1>Welcome back!</h1>
+<p>Small steps every day lead to big results.</p>
+</div>
+
+<div class="grid">
+<div class="stat"><strong id="totalTasks">0</strong><span>Total tasks</span></div>
+<div class="stat"><strong id="completedTasks">0</strong><span>Completed</span></div>
+<div class="stat"><strong id="completionRate">0%</strong><span>Progress</span></div>
+</div>
+
+<div class="progress"><div id="progressBar"></div></div>
+
+<div class="tabs">
+<button class="active" onclick="showTab('tasks',this)">My Tasks</button>
+<button onclick="showTab('subjects',this)">Subjects</button>
+<button onclick="showTab('planner',this)">Weekly Planner</button>
+<button onclick="showTab('timer',this)">Focus Timer</button>
+</div>
+
+<section id="tasks" class="section active">
 <div class="card">
-<h3>Add a new task</h3>
+<h2>➕ Add a new task</h2>
 <input id="taskInput" placeholder="What do you need to study?">
-<input id="taskDate" type="date">
-<button class="add" onclick="addTask()">+ Add task</button>
+<div class="row">
+<select id="taskSubject"><option value="">Choose subject</option></select>
+<input type="date" id="taskDate">
+</div>
+<select id="taskPriority">
+<option value="Normal">Normal priority</option>
+<option value="High">High priority</option>
+<option value="Low">Low priority</option>
+</select>
+<button style="width:100%" onclick="addTask()">Add task</button>
 </div>
 
 <div class="card">
-<h3>My tasks</h3>
-<p class="stats" id="stats">0 tasks completed</p>
+<h2>My tasks</h2>
 <div id="taskList"></div>
 </div>
+</section>
+
+<section id="subjects" class="section">
+<div class="card">
+<h2>📖 My Subjects</h2>
+<input id="subjectInput" placeholder="Enter a subject name">
+<button style="width:100%" onclick="addSubject()">Add subject</button>
+<div id="subjectList" style="margin-top:15px"></div>
+</div>
+</section>
+
+<section id="planner" class="section">
+<div class="card">
+<h2>📅 Weekly Planner</h2>
+<p>Choose a day to see your tasks.</p>
+<div class="days" id="days"></div>
+<div id="dayTasks" style="margin-top:18px"></div>
+</div>
+</section>
+
+<section id="timer" class="section">
+<div class="card timer">
+<h2>🍅 Focus Session</h2>
+<p>Focus on one thing at a time.</p>
+<div class="time" id="clock">25:00</div>
+<button onclick="startTimer()">Start</button>
+<button onclick="pauseTimer()">Pause</button>
+<button onclick="resetTimer()">Reset</button>
+<div style="margin-top:20px">
+<button onclick="setTimer(25)">25 min</button>
+<button onclick="setTimer(15)">15 min</button>
+<button onclick="setTimer(5)">5 min</button>
+</div>
+<p id="timerMessage">Ready when you are!</p>
+</div>
+</section>
+
+<footer>StudyMate — Make every study session count.</footer>
 </div>
 
 <script>
-let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+let tasks=JSON.parse(localStorage.getItem("sm_tasks")||"[]");
+let subjects=JSON.parse(localStorage.getItem("sm_subjects")||"[]");
+let selectedDay=new Date().getDay();
+let seconds=1500;
+let timerInterval=null;
 
 function save(){
-localStorage.setItem("tasks",JSON.stringify(tasks));
+localStorage.setItem("sm_tasks",JSON.stringify(tasks));
+localStorage.setItem("sm_subjects",JSON.stringify(subjects));
 render();
 }
 
+function showTab(id,button){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+button.classList.add("active");
+if(id==="planner")renderPlanner();
+}
+
+function addSubject(){
+let input=document.getElementById("subjectInput");
+let name=input.value.trim();
+if(!name)return;
+if(subjects.includes(name)){alert("This subject already exists.");return;}
+subjects.push(name);
+input.value="";
+save();
+}
+
+function deleteSubject(name){
+subjects=subjects.filter(s=>s!==name);
+save();
+}
+
+function renderSubjects(){
+let list=document.getElementById("subjectList");
+let select=document.getElementById("taskSubject");
+list.innerHTML="";
+select.innerHTML='<option value="">Choose subject</option>';
+subjects.forEach(s=>{
+let option=document.createElement("option");
+option.value=s;option.textContent=s;select.appendChild(option);
+let item=document.createElement("span");
+item.className="subject";
+item.append(document.createTextNode(s+" "));
+let del=document.createElement("button");
+del.textContent="×";
+del.onclick=()=>deleteSubject(s);
+item.appendChild(del);
+list.appendChild(item);
+});
+if(!subjects.length)list.innerHTML='<div class="empty">No subjects added yet.</div>';
+}
+
 function addTask(){
-let input=document.getElementById("taskInput");
-if(!input.value.trim())return;
+let name=document.getElementById("taskInput").value.trim();
+if(!name){alert("Please enter a task.");return;}
 tasks.push({
 id:Date.now(),
-name:input.value.trim(),
+name,
+subject:document.getElementById("taskSubject").value,
 date:document.getElementById("taskDate").value,
+priority:document.getElementById("taskPriority").value,
 done:false
 });
-input.value="";
+document.getElementById("taskInput").value="";
 document.getElementById("taskDate").value="";
 save();
 }
@@ -73,37 +231,114 @@ tasks=tasks.filter(t=>t.id!==id);
 save();
 }
 
-function render(){
+function renderTasks(){
 let list=document.getElementById("taskList");
 list.innerHTML="";
-let completed=tasks.filter(t=>t.done).length;
-document.getElementById("stats").textContent=
-completed+" of "+tasks.length+" tasks completed";
-
-tasks.forEach(t=>{
+if(!tasks.length){list.innerHTML='<div class="empty">No tasks yet. Add your first task!</div>';return;}
+tasks.slice().sort((a,b)=>(a.date||"9999").localeCompare(b.date||"9999")).forEach(t=>{
 let row=document.createElement("div");
 row.className="task";
 let check=document.createElement("input");
-check.type="checkbox";
-check.checked=t.done;
-check.style.width="20px";
-check.style.margin="0";
+check.type="checkbox";check.checked=t.done;
 check.onchange=()=>toggleTask(t.id);
-
-let name=document.createElement("span");
-name.textContent=t.name+(t.date?" — "+t.date:"");
-if(t.done)name.className="done";
-
+let info=document.createElement("div");
+info.className="task-name"+(t.done?" done":"");
+info.textContent=t.name;
+let details=document.createElement("span");
+details.className="small";
+details.textContent=[t.subject,t.date,t.priority+" priority"].filter(Boolean).join(" • ");
+info.appendChild(details);
 let del=document.createElement("button");
-del.className="delete";
-del.textContent="Delete";
+del.className="delete";del.textContent="Delete";
 del.onclick=()=>deleteTask(t.id);
-
-row.append(check,name,del);
+row.append(check,info,del);
 list.appendChild(row);
 });
 }
+
+function renderStats(){
+let total=tasks.length;
+let completed=tasks.filter(t=>t.done).length;
+let rate=total?Math.round(completed/total*100):0;
+document.getElementById("totalTasks").textContent=total;
+document.getElementById("completedTasks").textContent=completed;
+document.getElementById("completionRate").textContent=rate+"%";
+document.getElementById("progressBar").style.width=rate+"%";
+}
+
+function renderPlanner(){
+let names=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+let days=document.getElementById("days");
+days.innerHTML="";
+names.forEach((name,i)=>{
+let b=document.createElement("button");
+b.className="day"+(i===selectedDay?" active":"");
+b.textContent=name;
+b.onclick=()=>{selectedDay=i;renderPlanner();};
+days.appendChild(b);
+});
+let date=new Date();
+let offset=(selectedDay-date.getDay()+7)%7;
+date.setDate(date.getDate()+offset);
+let dateString=date.toISOString().slice(0,10);
+let dayTasks=tasks.filter(t=>t.date===dateString);
+let box=document.getElementById("dayTasks");
+box.innerHTML="<h3>"+names[selectedDay]+" — "+dateString+"</h3>";
+if(!dayTasks.length){box.innerHTML+='<div class="empty">No tasks planned for this day.</div>';return;}
+dayTasks.forEach(t=>{
+let p=document.createElement("p");
+p.textContent=(t.done?"✓ ":"• ")+t.name+(t.subject?" — "+t.subject:"");
+box.appendChild(p);
+});
+}
+
+function render(){
+renderSubjects();
+renderTasks();
+renderStats();
+renderPlanner();
+}
+
+function updateClock(){
+let m=Math.floor(seconds/60);
+let s=seconds%60;
+document.getElementById("clock").textContent=
+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+}
+
+function setTimer(minutes){
+pauseTimer();
+seconds=minutes*60;
+document.getElementById("timerMessage").textContent="Timer set. Ready to focus?";
+updateClock();
+}
+
+function startTimer(){
+if(timerInterval)return;
+document.getElementById("timerMessage").textContent="Stay focused. You've got this!";
+timerInterval=setInterval(()=>{
+if(seconds>0){seconds--;updateClock();}
+else{
+pauseTimer();
+document.getElementById("timerMessage").textContent="Session complete! Take a short break.";
+}
+},1000);
+}
+
+function pauseTimer(){
+clearInterval(timerInterval);
+timerInterval=null;
+}
+
+function resetTimer(){
+pauseTimer();
+seconds=1500;
+updateClock();
+document.getElementById("timerMessage").textContent="Timer reset.";
+}
+
 render();
+updateClock();
 </script>
 </body>
 </html>
