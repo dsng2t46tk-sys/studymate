@@ -4,78 +4,53 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StudyMate</title>
-
 <style>
 *{box-sizing:border-box}
-:root{
---bg:#f5f6f2;--card:#fff;--text:#202a25;
---muted:#858d87;--green:#456b55;--light:#e8efe9;
---border:#e8ebe7
-}
+:root{--bg:#f5f6f2;--card:#fff;--text:#202a25;--muted:#858d87;--green:#456b55;--light:#e8eee9;--border:#e8ebe7}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-.container{max-width:850px;margin:auto;padding:25px 16px 55px}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.container{max-width:850px;margin:auto;padding:28px 20px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px}
 .logo{font-size:25px;font-weight:bold;color:var(--green)}
-.tag{font-size:11px;color:var(--muted)}
+.tag{font-size:12px;color:var(--muted)}
 h1{font-size:29px;margin:0 0 7px}
-h2{font-size:19px;margin:0 0 16px}
-h3{font-size:15px;margin:0 0 12px}
+h2{font-size:20px;margin:0 0 17px}
+h3{font-size:16px;margin:0 0 13px}
 p{color:var(--muted)}
 .welcome{margin-bottom:25px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
-.stat,.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:17px}
-.stat strong{display:block;font-size:25px;color:var(--green);margin-bottom:5px}
-.stat span{font-size:12px;color:var(--muted)}
-.card{margin-bottom:16px}
-input,select,button{font:inherit;border-radius:9px;padding:12px;border:1px solid var(--border)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.stat,.card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:20px}
+.stat strong{display:block;font-size:25px;color:var(--green);margin-bottom:8px}
+.stat span{font-size:13px;color:var(--muted)}
+.card{margin-bottom:17px}
+input,select,button{font:inherit;border-radius:12px;padding:13px;border:1px solid var(--border)}
 input,select{width:100%;background:white;margin-bottom:10px;color:var(--text)}
 button{background:var(--green);color:white;border:0;cursor:pointer}
 button:hover{opacity:.88}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.progress{height:10px;background:#e9eee9;border-radius:20px;overflow:hidden;margin:12px 0 22px}
-.progress div{height:100%;background:var(--green);width:0%;transition:.3s}
-.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
-.tabs button{background:#e8ece8;color:var(--green);padding:10px 12px;font-size:13px}
+.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0}
+.tabs button{background:var(--light);color:var(--green)}
 .tabs button.active{background:var(--green);color:white}
 .section{display:none}
 .section.active{display:block}
+.progress{height:10px;background:#e9eee9;border-radius:20px;overflow:hidden;margin:18px 0}
+.progress div{height:100%;background:var(--green);width:0}
 .task{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--border)}
 .task:last-child{border:0}
-.task input{width:19px;margin:0}
-.task-name{flex:1;font-size:14px;overflow-wrap:anywhere}
-.done{text-decoration:line-through;color:#a0a7a1}
-.small{font-size:11px;color:var(--muted);display:block;margin-top:5px}
-.actions{display:flex;gap:5px}
-.edit,.delete{padding:8px 10px;font-size:12px}
-.edit{background:#e8efe9;color:var(--green)}
-.delete{background:#f3e9e7;color:#925e55}
-.subject{display:inline-flex;gap:7px;align-items:center;background:var(--light);padding:9px 12px;border-radius:20px;margin:4px;font-size:13px}
-.subject button{background:transparent;color:#925e55;padding:0}
-.days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
-.day{background:#f1f4f0;color:var(--green);padding:10px 2px;font-size:12px}
-.day.active{background:var(--green);color:white}
-.timer{text-align:center;padding:15px}
-.time{font-size:54px;font-weight:bold;color:var(--green);margin:15px}
-.timer button{margin:4px}
-.empty{text-align:center;padding:20px;color:var(--muted);font-size:13px}
-.record{padding:12px 0;border-bottom:1px solid var(--border);font-size:14px}
-.record:last-child{border:0}
-footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
-@media(max-width:520px){
-.container{padding:20px 13px 45px}
-.grid{gap:6px}
-.stat{padding:12px 8px}
-.stat strong{font-size:21px}
-.stat span{font-size:11px}
-.days{gap:3px}
-.day{font-size:10px}
-.task{gap:7px}
-.actions{gap:4px}
-.edit,.delete{padding:8px 7px}
-}
+.task input{width:20px;margin:0}
+.task-name{flex:1;font-size:14px}
+.done{text-decoration:line-through;color:#a0aaa3}
+.small{font-size:12px;color:var(--muted);display:block;margin-top:5px}
+.delete{background:#f3e9e7;color:#925e55;padding:9px 12px}
+.subject-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.subject-item:last-child{border:0}
+.empty{text-align:center;padding:20px;color:var(--muted)}
+.timer{text-align:center;padding:25px}
+.timer strong{font-size:55px;color:var(--green);display:block;margin:20px}
+.history-item{padding:12px 0;border-bottom:1px solid var(--border)}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
+@media(max-width:550px){.container{padding:22px 15px}.grid{gap:8px}.stat{padding:14px 10px}.stat strong{font-size:22px}.tabs button{font-size:13px;padding:11px}.row{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
 <div class="container">
 
@@ -90,9 +65,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
 </div>
 
 <div class="grid">
-<div class="stat"><strong id="totalTasks">0</strong><span>Total tasks</span></div>
-<div class="stat"><strong id="completedTasks">0</strong><span>Completed</span></div>
-<div class="stat"><strong id="completionRate">0%</strong><span>Progress</span></div>
+<div class="stat"><strong id="total">0</strong><span>Total tasks</span></div>
+<div class="stat"><strong id="completed">0</strong><span>Completed</span></div>
+<div class="stat"><strong id="percentage">0%</strong><span>Progress</span></div>
 </div>
 
 <div class="progress"><div id="progressBar"></div></div>
@@ -106,99 +81,76 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
 </div>
 
 <section id="tasks" class="section active">
-
 <div class="card">
-<h2 id="formTitle">➕ Add a new task</h2>
-<input id="taskInput" placeholder="What do you need to study?">
-
+<h2>＋ Add a new task</h2>
+<input id="taskName" placeholder="What do you need to study?">
 <div class="row">
-<select id="taskSubject">
-<option value="">Choose subject</option>
-</select>
-<input type="date" id="taskDate">
+<select id="taskSubject"><option value="">Choose subject</option></select>
+<input id="taskDate" type="date">
 </div>
-
 <select id="taskPriority">
 <option value="Normal">Normal priority</option>
 <option value="High">High priority</option>
 <option value="Low">Low priority</option>
 </select>
-
-<button style="width:100%" onclick="addTask()" id="saveTaskButton">Add task</button>
-<button style="width:100%;display:none;margin-top:8px;background:#777" onclick="cancelEdit()" id="cancelEditButton">Cancel editing</button>
+<button style="width:100%" onclick="addTask()">Add task</button>
 </div>
 
 <div class="card">
 <h2>My tasks</h2>
-
-<input id="searchInput" placeholder="🔍 Search tasks..." oninput="renderTasks()">
-
+<input id="search" placeholder="🔎 Search tasks..." oninput="renderTasks()">
 <div class="row">
-<select id="statusFilter" onchange="renderTasks()">
+<select id="filterStatus" onchange="renderTasks()">
 <option value="all">All tasks</option>
-<option value="active">Not completed</option>
+<option value="active">Active</option>
 <option value="done">Completed</option>
 </select>
-
-<select id="priorityFilter" onchange="renderTasks()">
+<select id="filterPriority" onchange="renderTasks()">
 <option value="all">All priorities</option>
 <option value="High">High priority</option>
 <option value="Normal">Normal priority</option>
 <option value="Low">Low priority</option>
 </select>
 </div>
-
 <div id="taskList"></div>
 </div>
 </section>
 
 <section id="subjects" class="section">
 <div class="card">
-<h2>📖 My Subjects</h2>
-<input id="subjectInput" placeholder="Enter a subject name">
-<button style="width:100%" onclick="addSubject()">Add subject</button>
-<div id="subjectList" style="margin-top:15px"></div>
+<h2>My Subjects</h2>
+<p>Add your subjects here. They will appear automatically when you create a task.</p>
+<input id="subjectName" placeholder="Enter subject name">
+<button style="width:100%" onclick="addSubject()">＋ Add subject</button>
+</div>
+<div class="card">
+<h2>My subjects list</h2>
+<div id="subjectList"></div>
 </div>
 </section>
 
 <section id="planner" class="section">
 <div class="card">
-<h2>📅 Weekly Planner</h2>
-<p>Choose a day to see your tasks.</p>
-<div class="days" id="days"></div>
-<div id="dayTasks" style="margin-top:18px"></div>
+<h2>Weekly Planner</h2>
+<p>Your upcoming tasks by date.</p>
+<div id="weeklyList"></div>
 </div>
 </section>
 
 <section id="timer" class="section">
 <div class="card timer">
-<h2>🍅 Focus Session</h2>
-<p>Focus on one thing at a time.</p>
-<div class="time" id="clock">25:00</div>
+<h2>Focus Timer ⏱️</h2>
+<p>Stay focused on one task at a time.</p>
+<strong id="clock">25:00</strong>
 <button onclick="startTimer()">Start</button>
-<button onclick="pauseTimer()">Pause</button>
-<button onclick="resetTimer()">Reset</button>
-
-<div style="margin-top:20px">
-<button onclick="setTimer(25)">25 min</button>
-<button onclick="setTimer(15)">15 min</button>
-<button onclick="setTimer(5)">5 min</button>
-</div>
-
-<p id="timerMessage">Ready when you are!</p>
-<p id="sessionStatus"></p>
+<button onclick="pauseTimer()" style="background:#858d87">Pause</button>
+<button onclick="resetTimer()" style="background:#858d87">Reset</button>
 </div>
 </section>
 
 <section id="history" class="section">
 <div class="card">
-<h2>📊 Study History</h2>
-<div class="grid">
-<div class="stat"><strong id="totalSessions">0</strong><span>Sessions</span></div>
-<div class="stat"><strong id="totalMinutes">0</strong><span>Minutes studied</span></div>
-<div class="stat"><strong id="totalHours">0</strong><span>Hours studied</span></div>
-</div>
-<h3>Recent sessions</h3>
+<h2>Study History</h2>
 <div id="historyList"></div>
 </div>
 </section>
@@ -209,18 +161,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
 <script>
 let tasks=JSON.parse(localStorage.getItem("sm_tasks")||"[]");
 let subjects=JSON.parse(localStorage.getItem("sm_subjects")||"[]");
-let sessions=JSON.parse(localStorage.getItem("sm_sessions")||"[]");
-
-let selectedDay=new Date().getDay();
-let seconds=1500;
-let timerInterval=null;
-let sessionStart=null;
-let editingId=null;
+let history=JSON.parse(localStorage.getItem("sm_history")||"[]");
 
 function save(){
 localStorage.setItem("sm_tasks",JSON.stringify(tasks));
 localStorage.setItem("sm_subjects",JSON.stringify(subjects));
-localStorage.setItem("sm_sessions",JSON.stringify(sessions));
+localStorage.setItem("sm_history",JSON.stringify(history));
 render();
 }
 
@@ -229,15 +175,14 @@ document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
 document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
 document.getElementById(id).classList.add("active");
 button.classList.add("active");
-if(id==="planner")renderPlanner();
-if(id==="history")renderHistory();
 }
 
 function addSubject(){
-let input=document.getElementById("subjectInput");
+let input=document.getElementById("subjectName");
 let name=input.value.trim();
-if(!name)return;
-if(subjects.includes(name)){alert("This subject already exists.");return;}
+if(!name)return alert("Enter a subject name.");
+if(subjects.some(s=>s.toLowerCase()===name.toLowerCase()))
+return alert("This subject already exists.");
 subjects.push(name);
 input.value="";
 save();
@@ -249,95 +194,43 @@ subjects=subjects.filter(s=>s!==name);
 save();
 }
 
-function renderSubjects(){
-let list=document.getElementById("subjectList");
+function updateSubjectOptions(){
 let select=document.getElementById("taskSubject");
 let current=select.value;
-
-list.innerHTML="";
 select.innerHTML='<option value="">Choose subject</option>';
-
 subjects.forEach(s=>{
 let option=document.createElement("option");
 option.value=s;
 option.textContent=s;
 select.appendChild(option);
-
-let item=document.createElement("span");
-item.className="subject";
-item.append(document.createTextNode(s+" "));
-let del=document.createElement("button");
-del.textContent="×";
-del.onclick=()=>deleteSubject(s);
-item.appendChild(del);
-list.appendChild(item);
 });
-
 select.value=current;
-
-if(!subjects.length){
-list.innerHTML='<div class="empty">No subjects added yet.</div>';
-}
 }
 
 function addTask(){
-let name=document.getElementById("taskInput").value.trim();
-if(!name){alert("Please enter a task.");return;}
-
-let data={
-name:name,
-subject:document.getElementById("taskSubject").value,
-date:document.getElementById("taskDate").value,
-priority:document.getElementById("taskPriority").value
-};
-
-if(editingId!==null){
-tasks=tasks.map(t=>t.id===editingId?{...t,...data}:t);
-cancelEdit();
-}else{
-tasks.push({...data,id:Date.now(),done:false});
-document.getElementById("taskInput").value="";
+let name=document.getElementById("taskName").value.trim();
+let subject=document.getElementById("taskSubject").value;
+let date=document.getElementById("taskDate").value;
+let priority=document.getElementById("taskPriority").value;
+if(!name)return alert("Enter a task name.");
+if(!subject)return alert("Choose a subject first.");
+tasks.push({id:Date.now(),name,subject,date,priority,done:false});
+document.getElementById("taskName").value="";
 document.getElementById("taskDate").value="";
-document.getElementById("taskPriority").value="Normal";
-document.getElementById("taskSubject").value="";
-}
-
 save();
 }
 
-function editTask(id){
-let t=tasks.find(x=>x.id===id);
-if(!t)return;
-
-editingId=id;
-document.getElementById("taskInput").value=t.name;
-document.getElementById("taskSubject").value=t.subject||"";
-document.getElementById("taskDate").value=t.date||"";
-document.getElementById("taskPriority").value=t.priority||"Normal";
-document.getElementById("formTitle").textContent="✏️ Edit task";
-document.getElementById("saveTaskButton").textContent="Save changes";
-document.getElementById("cancelEditButton").style.display="block";
-document.getElementById("taskInput").scrollIntoView({behavior:"smooth"});
-}
-
-function cancelEdit(){
-editingId=null;
-document.getElementById("taskInput").value="";
-document.getElementById("taskSubject").value="";
-document.getElementById("taskDate").value="";
-document.getElementById("taskPriority").value="Normal";
-document.getElementById("formTitle").textContent="➕ Add a new task";
-document.getElementById("saveTaskButton").textContent="Add task";
-document.getElementById("cancelEditButton").style.display="none";
-}
-
 function toggleTask(id){
-tasks=tasks.map(t=>t.id===id?{...t,done:!t.done}:t);
+let task=tasks.find(t=>t.id===id);
+if(!task)return;
+task.done=!task.done;
+if(task.done){
+history.unshift({name:task.name,subject:task.subject,date:new Date().toLocaleDateString()});
+}
 save();
 }
 
 function deleteTask(id){
-if(!confirm("Delete this task?"))return;
 tasks=tasks.filter(t=>t.id!==id);
 save();
 }
@@ -345,210 +238,102 @@ save();
 function renderTasks(){
 let list=document.getElementById("taskList");
 list.innerHTML="";
-
-let search=document.getElementById("searchInput").value.toLowerCase();
-let status=document.getElementById("statusFilter").value;
-let priority=document.getElementById("priorityFilter").value;
-
-let filtered=tasks.filter(t=>{
-let matchesSearch=t.name.toLowerCase().includes(search)||
-(t.subject||"").toLowerCase().includes(search);
-let matchesStatus=status==="all"||(status==="done"&&t.done)||(status==="active"&&!t.done);
-let matchesPriority=priority==="all"||t.priority===priority;
-return matchesSearch&&matchesStatus&&matchesPriority;
-});
-
-if(!filtered.length){
-list.innerHTML='<div class="empty">No matching tasks found.</div>';
-return;
-}
-
+let search=document.getElementById("search").value.toLowerCase();
+let status=document.getElementById("filterStatus").value;
+let priority=document.getElementById("filterPriority").value;
+let filtered=tasks.filter(t=>
+t.name.toLowerCase().includes(search)&&
+(status==="all"||(status==="done"&&t.done)||(status==="active"&&!t.done))&&
+(priority==="all"||t.priority===priority)
+);
+if(!filtered.length){list.innerHTML='<div class="empty">No tasks found.</div>';return;}
 filtered.forEach(t=>{
 let row=document.createElement("div");
 row.className="task";
-
 let check=document.createElement("input");
-check.type="checkbox";
-check.checked=t.done;
+check.type="checkbox";check.checked=t.done;
 check.onchange=()=>toggleTask(t.id);
-
 let info=document.createElement("div");
 info.className="task-name"+(t.done?" done":"");
 info.textContent=t.name;
-
 let details=document.createElement("span");
 details.className="small";
-details.textContent=[t.subject,t.date,t.priority+" priority"].filter(Boolean).join(" • ");
+details.textContent=t.subject+" • "+(t.date||"No date")+" • "+t.priority+" priority";
 info.appendChild(details);
-
-let actions=document.createElement("div");
-actions.className="actions";
-
-let edit=document.createElement("button");
-edit.className="edit";
-edit.textContent="Edit";
-edit.onclick=()=>editTask(t.id);
-
 let del=document.createElement("button");
-del.className="delete";
-del.textContent="Delete";
+del.className="delete";del.textContent="Delete";
 del.onclick=()=>deleteTask(t.id);
-
-actions.append(edit,del);
-row.append(check,info,actions);
+row.append(check,info,del);
 list.appendChild(row);
 });
 }
 
-function renderStats(){
-let total=tasks.length;
-let completed=tasks.filter(t=>t.done).length;
-let rate=total?Math.round(completed/total*100):0;
+function render(){
+document.getElementById("total").textContent=tasks.length;
+let count=tasks.filter(t=>t.done).length;
+document.getElementById("completed").textContent=count;
+let percent=tasks.length?Math.round(count/tasks.length*100):0;
+document.getElementById("percentage").textContent=percent+"%";
+document.getElementById("progressBar").style.width=percent+"%";
 
-document.getElementById("totalTasks").textContent=total;
-document.getElementById("completedTasks").textContent=completed;
-document.getElementById("completionRate").textContent=rate+"%";
-document.getElementById("progressBar").style.width=rate+"%";
-}
+updateSubjectOptions();
+renderTasks();
 
-function localDate(date){
-let y=date.getFullYear();
-let m=String(date.getMonth()+1).padStart(2,"0");
-let d=String(date.getDate()).padStart(2,"0");
-return y+"-"+m+"-"+d;
-}
-
-function renderPlanner(){
-let names=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-let days=document.getElementById("days");
-days.innerHTML="";
-
-names.forEach((name,i)=>{
-let b=document.createElement("button");
-b.className="day"+(i===selectedDay?" active":"");
-b.textContent=name;
-b.onclick=()=>{selectedDay=i;renderPlanner();};
-days.appendChild(b);
+let subjectList=document.getElementById("subjectList");
+subjectList.innerHTML="";
+if(!subjects.length)subjectList.innerHTML='<div class="empty">No subjects yet. Add your first subject!</div>';
+subjects.forEach(s=>{
+let row=document.createElement("div");
+row.className="subject-item";
+let name=document.createElement("strong");
+name.textContent=s;
+let del=document.createElement("button");
+del.className="delete";del.textContent="Delete";
+del.onclick=()=>deleteSubject(s);
+row.append(name,del);
+subjectList.appendChild(row);
 });
 
-let date=new Date();
-let offset=(selectedDay-date.getDay()+7)%7;
-date.setDate(date.getDate()+offset);
-let dateString=localDate(date);
+let weekly=document.getElementById("weeklyList");
+weekly.innerHTML="";
+let upcoming=tasks.filter(t=>!t.done&&t.date).sort((a,b)=>a.date.localeCompare(b.date));
+if(!upcoming.length)weekly.innerHTML='<div class="empty">No upcoming tasks with dates.</div>';
+upcoming.forEach(t=>{
+let item=document.createElement("div");
+item.className="history-item";
+item.textContent=t.date+" — "+t.name+" ("+t.subject+")";
+weekly.appendChild(item);
+});
 
-let dayTasks=tasks.filter(t=>t.date===dateString);
-let box=document.getElementById("dayTasks");
-box.innerHTML="<h3>"+names[selectedDay]+" — "+dateString+"</h3>";
-
-if(!dayTasks.length){
-box.innerHTML+='<div class="empty">No tasks planned for this day.</div>';
-return;
-}
-
-dayTasks.forEach(t=>{
-let p=document.createElement("p");
-p.textContent=(t.done?"✓ ":"• ")+t.name+(t.subject?" — "+t.subject:"");
-box.appendChild(p);
+let hist=document.getElementById("historyList");
+hist.innerHTML="";
+if(!history.length)hist.innerHTML='<div class="empty">Your completed tasks will appear here.</div>';
+history.forEach(h=>{
+let item=document.createElement("div");
+item.className="history-item";
+item.textContent="✓ "+h.name+" — "+h.subject+" • "+h.date;
+hist.appendChild(item);
 });
 }
 
+let seconds=1500,timer=null;
 function updateClock(){
-let m=Math.floor(seconds/60);
-let s=seconds%60;
+let m=Math.floor(seconds/60),s=seconds%60;
 document.getElementById("clock").textContent=
 String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
 }
-
-function setTimer(minutes){
-pauseTimer();
-seconds=minutes*60;
-sessionStart=null;
-document.getElementById("sessionStatus").textContent="";
-document.getElementById("timerMessage").textContent="Timer set. Ready to focus?";
-updateClock();
-}
-
 function startTimer(){
-if(timerInterval)return;
-if(!sessionStart)sessionStart=Date.now();
-
-document.getElementById("timerMessage").textContent="Stay focused. You've got this!";
-
-timerInterval=setInterval(()=>{
-if(seconds>0){
-seconds--;
-updateClock();
-}else{
-finishSession();
-}
+if(timer)return;
+timer=setInterval(()=>{
+if(seconds>0){seconds--;updateClock();}
+else{clearInterval(timer);timer=null;alert("Focus session completed!");}
 },1000);
 }
+function pauseTimer(){clearInterval(timer);timer=null;}
+function resetTimer(){pauseTimer();seconds=1500;updateClock();}
 
-function pauseTimer(){
-clearInterval(timerInterval);
-timerInterval=null;
-}
-
-function finishSession(){
-pauseTimer();
-
-let duration=Math.max(1,Math.round((Date.now()-sessionStart)/60000));
-sessions.push({
-id:Date.now(),
-minutes:duration,
-date:new Date().toLocaleString()
-});
-
-save();
-sessionStart=null;
-seconds=0;
 updateClock();
-document.getElementById("timerMessage").textContent="Session complete! Great work.";
-document.getElementById("sessionStatus").textContent="Your session was saved to Study History.";
-}
-
-function resetTimer(){
-pauseTimer();
-seconds=1500;
-sessionStart=null;
-updateClock();
-document.getElementById("timerMessage").textContent="Timer reset.";
-document.getElementById("sessionStatus").textContent="";
-}
-
-function renderHistory(){
-let total=sessions.reduce((sum,s)=>sum+s.minutes,0);
-
-document.getElementById("totalSessions").textContent=sessions.length;
-document.getElementById("totalMinutes").textContent=total;
-document.getElementById("totalHours").textContent=(total/60).toFixed(1);
-
-let list=document.getElementById("historyList");
-list.innerHTML="";
-
-if(!sessions.length){
-list.innerHTML='<div class="empty">No study sessions recorded yet. Start your first focus session!</div>';
-return;
-}
-
-sessions.slice().reverse().forEach(s=>{
-let item=document.createElement("div");
-item.className="record";
-item.textContent="🍅 "+s.minutes+" minutes — "+s.date;
-list.appendChild(item);
-});
-}
-
-function render(){
-renderSubjects();
-renderTasks();
-renderStats();
-renderPlanner();
-renderHistory();
-}
-
 render();
-updateClock();
 </script>
 </body>
 </html>
